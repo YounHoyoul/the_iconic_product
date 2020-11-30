@@ -18,11 +18,11 @@ vim ./config/product.php
 ```
 return [
     'live-endpoint'     => 'https://eve.theiconic.com.au',
-    'serch-url'         => '/catalog/products?gender=female&page=6800&page_size=10&sort=popularity',
+    'serch-url'         => '/catalog/products?gender=female&page=6000&page_size=10&sort=popularity',
     'video-preview-url' => '/catalog/products/{sku}/videos',
-    'outfile;           => 'out.json',
+    'outfile'           => 'out.json',
     'chunk_size'        => 10,
-    'limit'             => 10,
+    'limit'             => 100000,
 ];
 ```
 
