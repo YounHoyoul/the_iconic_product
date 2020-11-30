@@ -38,7 +38,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getByVideoCount(int $limit): Collection
     {
-        return $this->model->where('video_count', '>', 0)->get();
+        return $this->model->where('video_count', '>', 0)->take($limit)->get();
     }
 
     public function update(int $id, array $data): bool

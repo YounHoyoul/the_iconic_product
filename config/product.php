@@ -6,5 +6,5 @@ return [
     'video-preview-url' => '/catalog/products/{sku}/videos',
     'outfile'           => 'out.json',
     'chunk_size'        => 10,
-    'limit'             => 10,
+    'limit'             => 100000,
 ];

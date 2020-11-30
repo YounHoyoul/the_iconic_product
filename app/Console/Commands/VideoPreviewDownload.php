@@ -53,8 +53,10 @@ class VideoPreviewDownload extends Command
      */
     public function handle()
     {
-        foreach ($this->service->getByVideoCount(config("product.limit", 100000))
-            ->chunk(config('product.chunk_size', 10)) as $products) {
+        $limit = config("product.limit", 100000);
+        $chunk_size = config('product.chunk_size', 10);
+
+        foreach ($this->service->getByVideoCount($limit)->chunk($chunk_size) as $products) {
             foreach ($products as $product) {
                 echo (".");
                 try {
