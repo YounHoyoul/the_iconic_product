@@ -12,7 +12,7 @@ class Product extends Command
      *
      * @var string
      */
-    protected $signature = 'product::all';
+    protected $signature = 'product:all';
 
     /**
      * The console command description.
@@ -38,6 +38,8 @@ class Product extends Command
      */
     public function handle()
     {
+        Artisan::call('migrate:rollback');
+        Artisan::call('migrate');
         Artisan::call('product:download');
         Artisan::call('product:video-url');
         Artisan::call('product:save');

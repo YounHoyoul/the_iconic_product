@@ -25,16 +25,18 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function saveAll($fh): bool
     {
-        $this->model->orderBy('video_count', 'desc')->chunk(10, function ($products) use ($fh) {
-            foreach ($products as $product) {
-                fwrite($fh, $product->video_body ? $product->video_body : $product->body);
-            }
-        });
+        $this->model->orderBy('video_count', 'desc')->chunk(
+            config('product.chunk_size', 10), function ($products) use ($fh) {
+                foreach ($products as $product) {
+                    fwrite($fh, $product->video_body ? $product->video_body : $product->body);
+                }
+                echo (".");
+            });
 
         return true;
     }
 
-    public function getByVideoCount(): Collection
+    public function getByVideoCount(int $limit): Collection
     {
         return $this->model->where('video_count', '>', 0)->get();
     }

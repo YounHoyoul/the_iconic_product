@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /storage/*.sqlite
+/storage/*.sqlite.backup
 /vendor
 .env
 .env.backup

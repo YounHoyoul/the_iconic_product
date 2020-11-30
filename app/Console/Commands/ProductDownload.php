@@ -54,12 +54,14 @@ class ProductDownload extends Command
     {
         $next = config("product.live-endpoint") . config("product.serch-url");
         do {
-            try{
+            try {
                 echo ("{$next}\n");
                 $productDto = $this->client->getProducts($next);
                 $this->service->saveMany($productDto->products()->toArray());
                 $next = $productDto->next();
-            }catch(Exception $e){}
+            } catch (Exception $e) {
+                echo ($e->getMessage());
+            }
         } while ('' != $next);
 
         return 0;

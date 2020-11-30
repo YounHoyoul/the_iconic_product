@@ -46,7 +46,8 @@ class ProductSave extends Command
     public function handle()
     {
         $file = config("product.outfile");
-        unlink($file);
+        if(file_exists($file)) unlink($file);
+
         $fh = fopen($file, 'a') or die("can't open file");
 
         fwrite($fh, "[");

@@ -53,17 +53,24 @@ class VideoPreviewDownload extends Command
      */
     public function handle()
     {
-        dd($this->service->getByVideoCount()->take(10));
-        foreach ($this->service->getByVideoCount()->chunk(10) as $products) {
+        foreach ($this->service->getByVideoCount(config("product.limit", 100000))
+            ->chunk(config('product.chunk_size', 10)) as $products) {
             foreach ($products as $product) {
                 echo (".");
-                $response = $this->client->getVideoPreviewUrl($product->sku);
-                $payload = Arr::get($response, "_embedded.videos_url");
-                if (null === $payload || len($payload) == 0) {
-                    $this->service->update($product->id, ["video_count" => 0]);
-                    continue;
+                try {
+                    $response = $this->client->getVideoPreviewUrl($product->sku);
+                    $payload = Arr::get($response, "_embedded.videos_url");
+                    if (null === $payload || count($payload) == 0) {
+                        $this->service->update($product->id, [
+                            "video_count" => 0,
+                            'video_body' => null,
+                        ]);
+                        continue;
+                    }
+                    $this->service->addVideourlToProduct($product, $payload);
+                } catch (Exception $e) {
+                    echo ($e->getMessage());
                 }
-                $this->service->addVideourlToProduct($product, $payload);
             }
         };
     }

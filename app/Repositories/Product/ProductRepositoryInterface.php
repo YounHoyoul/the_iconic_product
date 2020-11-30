@@ -10,7 +10,7 @@ interface ProductRepositoryInterface
 
     public function saveAll($fh): bool;
 
-    public function getByVideoCount(): Collection;
+    public function getByVideoCount(int $limit): Collection;
 
     public function update(int $id, array $data): bool;
 }

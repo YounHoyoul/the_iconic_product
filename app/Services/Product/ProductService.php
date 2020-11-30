@@ -29,9 +29,9 @@ class ProductService implements ProductServiceInterface
         return $this->repository->saveAll($fh);
     }
 
-    public function getByVideoCount(): Collection
+    public function getByVideoCount(int $limit): Collection
     {
-        return $this->repository->getByVideoCount();
+        return $this->repository->getByVideoCount($limit);
     }
 
     public function update(int $id, array $data): bool
